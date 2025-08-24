@@ -1,11 +1,10 @@
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View } from "react-native";
 import tw from "twrnc";
 
 export default function CreateScreen() {
   return (
-    <SafeAreaView>
-      <Text style={tw`text-xl font-bold`}>Create Screen</Text>
-    </SafeAreaView>
+    <View>
+      <Text style={tw`text-xl`}>Create Screen</Text>
+    </View>
   );
 }
