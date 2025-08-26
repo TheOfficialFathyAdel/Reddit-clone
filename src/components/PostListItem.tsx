@@ -22,6 +22,7 @@ export default function PostListItem({ post }: PostListItemProps) {
         <Image
           source={{ uri: post.group.image || "" }}
           style={tw`h-9 w-9 rounded-full`}
+          resizeMode="cover"
         />
         <Text style={tw`font-bold text-base`}>{post.group.name}</Text>
         <Text style={tw`text-gray-500 text-base`}>
@@ -58,16 +59,16 @@ export default function PostListItem({ post }: PostListItemProps) {
         <View
           style={tw`border border-1 flex-row gap-1 border-gray-100 rounded-full p-1 px-6 items-center`}
         >
-          <MessageSquare />
+          <MessageSquare size={25} />
           <Text style={tw`font-bold text-base`}>{post.nr_of_comments}</Text>
         </View>
         <View
-          style={tw`border border-1  border-gray-100 rounded-full py-1 px-6 ml-auto`}
+          style={tw`border border-1 border-gray-100 rounded-full py-1 px-6 ml-auto`}
         >
           <Trophy size={25} />
         </View>
         <View
-          style={tw`border border-1  border-gray-100 rounded-full py-1 px-6`}
+          style={tw`border border-1 border-gray-100 rounded-full py-1 px-6`}
         >
           <Share size={25} />
         </View>
