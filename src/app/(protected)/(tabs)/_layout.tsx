@@ -1,7 +1,17 @@
 import { Tabs } from "expo-router";
-import { Home, Inbox, MessageCircle, Plus, Users } from "lucide-react-native";
+import {
+  Home,
+  Inbox,
+  LogOut,
+  MessageCircle,
+  Plus,
+  Users,
+} from "lucide-react-native";
+import tw from "twrnc";
+import { useAuth } from "@clerk/clerk-expo";
 
 export default function TabsLayout() {
+  const { signOut } = useAuth();
   return (
     <Tabs
       screenOptions={{
@@ -10,6 +20,9 @@ export default function TabsLayout() {
           fontSize: 14,
           fontWeight: "bold",
         },
+        headerRight: () => (
+          <LogOut size={30} style={tw`mx-4`} onPress={() => signOut()} />
+        ),
       }}
     >
       <Tabs.Screen
