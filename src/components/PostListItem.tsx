@@ -9,70 +9,86 @@ import {
   Share,
   Trophy,
 } from "lucide-react-native";
+import { Link } from "expo-router";
 
 interface PostListItemProps {
   post: Post;
+  isDetailedPost?: boolean;
 }
 
-export default function PostListItem({ post }: PostListItemProps) {
+export default function PostListItem({
+  post,
+  isDetailedPost,
+}: PostListItemProps) {
+  const shouldShowImage = isDetailedPost || post.image;
+  const shouldShowDescription = isDetailedPost || !post.image;
   return (
-    <View style={tw`px-4 py-4  mt-2`}>
-      {/* POST HEADER */}
-      <View style={tw`flex-row items-center gap-1`}>
-        <Image
-          source={{ uri: post.group.image || "" }}
-          style={tw`h-9 w-9 rounded-full`}
-          resizeMode="cover"
-        />
-        <Text style={tw`font-bold text-base`}>{post.group.name}</Text>
-        <Text style={tw`text-gray-500 text-base`}>
-          {moment(post.created_at).fromNow()}
-        </Text>
-        <Pressable style={tw`bg-[#0d469b] rounded-full ml-auto`}>
-          <Text style={tw`text-white font-bold px-4 py-2`}>Join</Text>
-        </Pressable>
-      </View>
+    <Link href={`/post/${post.id}`}>
+      <View style={tw`px-4 py-4 mt-2`}>
+        {/* POST HEADER */}
+        <View style={tw`flex-row items-start gap-1`}>
+          <Image
+            source={{ uri: post.group.image || "" }}
+            style={tw`h-9 w-9 rounded-full`}
+            resizeMode="cover"
+          />
+          <View>
+            <Text style={tw`font-bold text-base`}>{post.group.name}</Text>
+            <View>
+              <Text style={tw`font-bold text-base text-gray-500`}>
+                {post.user.name}
+              </Text>
+            </View>
+          </View>
+          <Text style={tw`text-gray-500 text-base font-bold ml-2`}>
+            {moment(post.created_at).fromNow()}
+          </Text>
+          <Pressable style={tw`bg-[#0d469b] rounded-full ml-auto`}>
+            <Text style={tw`text-white font-bold px-4 py-2`}>Join</Text>
+          </Pressable>
+        </View>
 
-      {/* Content */}
-      <Text style={tw`font-bold text-2xl mt-2`}>{post.title}</Text>
-      {post.image && (
-        <Image
-          source={{ uri: post.image }}
-          style={tw`mt-2 rounded-xl w-full aspect-4/3 `}
-        />
-      )}
-      {!post.image && post.description && (
-        <Text style={tw`text-base mt-2 font-semibold`} numberOfLines={4}>
-          {post.description}
-        </Text>
-      )}
+        {/* Content */}
+        <Text style={tw`font-bold text-2xl mt-2`}>{post.title}</Text>
+        {shouldShowImage && post.image && (
+          <Image
+            source={{ uri: post.image }}
+            style={tw`mt-2 rounded-xl w-full aspect-4/3 `}
+          />
+        )}
+        {shouldShowDescription && post.description && (
+          <Text style={tw`text-base mt-2 font-semibold`} numberOfLines={4}>
+            {post.description}
+          </Text>
+        )}
 
-      {/* Footer */}
-      <View style={tw`flex-row items-center gap-2 mt-4`}>
-        <View
-          style={tw`border border-1 flex-row border-gray-100 rounded-full p-1 items-center`}
-        >
-          <ArrowBigUp size={25} />
-          <Text style={tw`font-bold text-base`}>{post.upvotes}</Text>
-          <ArrowBigDown size={25} style={tw`ml-4`} />
-        </View>
-        <View
-          style={tw`border border-1 flex-row gap-1 border-gray-100 rounded-full p-1 px-6 items-center`}
-        >
-          <MessageSquare size={25} />
-          <Text style={tw`font-bold text-base`}>{post.nr_of_comments}</Text>
-        </View>
-        <View
-          style={tw`border border-1 border-gray-100 rounded-full py-1 px-6 ml-auto`}
-        >
-          <Trophy size={25} />
-        </View>
-        <View
-          style={tw`border border-1 border-gray-100 rounded-full py-1 px-6`}
-        >
-          <Share size={25} />
+        {/* Footer */}
+        <View style={tw`flex-row items-center gap-2 mt-4`}>
+          <View
+            style={tw`border border-1 flex-row border-gray-100 rounded-full p-1 items-center`}
+          >
+            <ArrowBigUp size={25} />
+            <Text style={tw`font-bold text-base`}>{post.upvotes}</Text>
+            <ArrowBigDown size={25} style={tw`ml-4`} />
+          </View>
+          <View
+            style={tw`border border-1 flex-row gap-1 border-gray-100 rounded-full p-1 px-6 items-center`}
+          >
+            <MessageSquare size={25} />
+            <Text style={tw`font-bold text-base`}>{post.nr_of_comments}</Text>
+          </View>
+          <View
+            style={tw`border border-1 border-gray-100 rounded-full py-1 px-6 ml-auto`}
+          >
+            <Trophy size={25} />
+          </View>
+          <View
+            style={tw`border border-1 border-gray-100 rounded-full py-1 px-6`}
+          >
+            <Share size={25} />
+          </View>
         </View>
       </View>
-    </View>
+    </Link>
   );
 }
