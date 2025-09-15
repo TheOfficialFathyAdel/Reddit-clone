@@ -45,21 +45,23 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="create"
+        options={{
+          title: "Create",
+          headerTitle: "Create Screen",
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+          headerTitleAlign: "center",
+          tabBarIcon: ({ color }) => <Plus size={25} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="community"
         options={{
           title: "Community",
           headerTitle: "Community Screen",
           headerTitleAlign: "center",
           tabBarIcon: ({ color }) => <Users size={24} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="create"
-        options={{
-          title: "Create",
-          headerTitle: "Create Screen",
-          headerTitleAlign: "center",
-          tabBarIcon: ({ color }) => <Plus size={25} color={color} />,
         }}
       />
       <Tabs.Screen
